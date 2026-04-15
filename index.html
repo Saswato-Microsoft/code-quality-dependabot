@@ -1221,26 +1221,41 @@
         }
     });
 
-    // Ecosystem Chart
+    // Ecosystem Chart — Horizontal Bar
     new Chart(document.getElementById('ecoChart'), {
-        type: 'doughnut',
+        type: 'bar',
         data: {
             labels: ['pip (Python)', 'npm (Node.js)'],
             datasets: [{
+                label: 'Vulnerability Count',
                 data: [118, 74],
                 backgroundColor: ['#0078D4', '#5BA0D6'],
-                borderColor: '#FFFFFF',
-                borderWidth: 3
+                hoverBackgroundColor: ['#005A9E', '#83BDE6'],
+                borderRadius: 6,
+                barThickness: 36
             }]
         },
         options: {
+            indexAxis: 'y',
             responsive: true,
             maintainAspectRatio: false,
-            cutout: '55%',
             plugins: {
-                legend: {
-                    position: 'right',
-                    labels: { color: fluentTextMuted, font: { size: 13, family: "'Segoe UI'" }, padding: 16 }
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(ctx) { return ctx.parsed.x + ' alerts'; }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: { color: fluentNeutral, font: { family: "'Segoe UI'" } },
+                    grid: { color: fluentGridColor }
+                },
+                y: {
+                    ticks: { color: fluentTextMuted, font: { size: 13, family: "'Segoe UI'", weight: '600' } },
+                    grid: { display: false }
                 }
             }
         }
