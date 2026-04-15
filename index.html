@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security &amp; Code Quality — Executive Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <!-- Microsoft Fluent UI Icons -->
+    <link rel="stylesheet" href="https://res.cdn.office.net/files/fabric-cdn-prod_20230815.002/css/fabric.min.css">
+    <style>
+        /* ===================================================
+           Microsoft Fluent 2 Design System — Light Theme Tokens
+           Warm & Minimal palette
+           =================================================== */
+        :root {
+            /* Neutral Backgrounds — warm whites & light grays */
+            --colorNeutralBackground1: #FAF9F8;
+            --colorNeutralBackground2: #FFFFFF;
+            --colorNeutralBackground3: #F3F2F1;
+            --colorNeutralBackground4: #EDEBE9;
+            --colorNeutralBackground5: #E1DFDD;
+            --colorNeutralBackgroundStatic: #FFFFFF;
+
+            /* Neutral Foreground — dark warm grays */
+            --colorNeutralForeground1: #242424;
+            --colorNeutralForeground2: #424242;
+            --colorNeutralForeground3: #616161;
+            --colorNeutralForeground4: #707070;
+            --colorNeutralForegroundDisabled: #A19F9D;
+
+            /* Neutral Strokes / Borders — soft warm gray */
+            --colorNeutralStroke1: #E1DFDD;
+            --colorNeutralStroke2: #EDEBE9;
+            --colorNeutralStrokeSubtle: #F3F2F1;
+
+            /* Brand Colors (Microsoft Blue) */
+            --colorBrandBackground: #0078D4;
+            --colorBrandBackgroundHover: #106EBE;
+            --colorBrandBackgroundPressed: #005A9E;
+            --colorBrandForeground1: #0078D4;
+            --colorBrandForegroundLink: #0F6CBD;
+            --colorBrandStroke1: #0078D4;
+
+            /* Status — Danger / Error (Critical) → Warm deep blue */
+            --colorStatusDangerForeground1: #004E8C;
+            --colorStatusDangerBackground1: #E8F1FA;
+            --colorStatusDangerBorder: #004E8C;
+
+            /* High — Deeper medium blue */
+            --colorPaletteOrangeForeground: #0F548C;
+            --colorPaletteOrangeBackground: #EBF3FC;
+
+            /* Status — Warning (Medium) → Soft mid-blue */
+            --colorStatusWarningForeground1: #2B6CB0;
+            --colorStatusWarningBackground1: #EFF6FC;
+
+            /* Status — Success (Low / Good) */
+            --colorStatusSuccessForeground1: #107C10;
+            --colorStatusSuccessBackground1: #F1FAF1;
+
+            /* Informational / Note — light blue tint */
+            --colorNeutralForegroundNote: #4A8BC2;
+            --colorNeutralBackgroundNote: #EFF6FC;
+
+            /* Elevation / Shadows (Fluent 2 light — soft & subtle) */
+            --shadow2: 0 1px 2px rgba(0,0,0,0.06), 0 0 1px rgba(0,0,0,0.04);
+            --shadow4: 0 2px 4px rgba(0,0,0,0.07), 0 0 1px rgba(0,0,0,0.05);
+            --shadow8: 0 4px 8px rgba(0,0,0,0.08), 0 0 2px rgba(0,0,0,0.04);
+            --shadow16: 0 8px 16px rgba(0,0,0,0.10), 0 0 2px rgba(0,0,0,0.06);
+
+            /* Fluent Spacing */
+            --spacingHorizontalS: 8px;
+            --spacingHorizontalM: 12px;
+            --spacingHorizontalL: 16px;
+            --spacingHorizontalXL: 20px;
+            --spacingHorizontalXXL: 24px;
+            --spacingVerticalS: 8px;
+            --spacingVerticalM: 12px;
+            --spacingVerticalL: 16px;
+            --spacingVerticalXL: 20px;
+            --spacingVerticalXXL: 24px;
+
+            /* Fluent Border Radius */
+            --borderRadiusMedium: 4px;
+            --borderRadiusLarge: 8px;
+            --borderRadiusXLarge: 12px;
+            --borderRadiusCircular: 9999px;
+
+            /* Typography */
+            --fontFamilyBase: 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+            --fontSizeBase200: 12px;
+            --fontSizeBase300: 14px;
+            --fontSizeBase400: 16px;
+            --fontSizeBase500: 20px;
+            --fontSizeBase600: 24px;
+            --fontSizeHero700: 28px;
+            --fontWeightRegular: 400;
+            --fontWeightSemibold: 600;
+            --fontWeightBold: 700;
+            --lineHeightBase200: 16px;
+            --lineHeightBase300: 20px;
+            --lineHeightBase400: 22px;
+
+            /* Semantic shortcuts used in dashboard */
+            --bg: var(--colorNeutralBackground1);
+            --surface: var(--colorNeutralBackground2);
+            --surface2: var(--colorNeutralBackground3);
+            --surface3: var(--colorNeutralBackground4);
+            --border: var(--colorNeutralStroke1);
+            --borderSubtle: var(--colorNeutralStroke2);
+            --text: var(--colorNeutralForeground1);
+            --textSecondary: var(--colorNeutralForeground2);
+            --textTertiary: var(--colorNeutralForeground3);
+            --textDisabled: var(--colorNeutralForegroundDisabled);
+            --accent: var(--colorBrandForeground1);
+            --accentLink: var(--colorBrandForegroundLink);
+            --critical: var(--colorStatusDangerForeground1);
+            --high: var(--colorPaletteOrangeForeground);
+            --medium: var(--colorStatusWarningForeground1);
+            --low: var(--colorStatusSuccessForeground1);
+            --note: var(--colorNeutralForegroundNote);
+            --green: var(--colorStatusSuccessForeground1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--fontFamilyBase);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== Header — Microsoft branded banner ===== */
+        .header {
+            background: linear-gradient(135deg, #0F2027 0%, #0078D4 50%, #00BCF2 100%);
+            padding: 0;
+        }
+
+        .header-band {
+            background: rgba(0,0,0,0.12);
+            padding: 10px 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-band .ms-logo {
+            display: grid;
+            grid-template-columns: 10px 10px;
+            grid-template-rows: 10px 10px;
+            gap: 2px;
+        }
+
+        .header-band .ms-logo span {
+            display: block;
+        }
+
+        .ms-logo .sq1 { background: #F25022; }
+        .ms-logo .sq2 { background: #7FBA00; }
+        .ms-logo .sq3 { background: #00A4EF; }
+        .ms-logo .sq4 { background: #FFB900; }
+
+        .header-band .ms-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: 0.3px;
+        }
+
+        .header-content {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 28px 40px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .header h1 {
+            font-size: var(--fontSizeHero700);
+            font-weight: var(--fontWeightBold);
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .header h1 .shield-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(255,255,255,0.2);
+            border-radius: var(--borderRadiusLarge);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .header-subtitle {
+            font-size: var(--fontSizeBase300);
+            color: rgba(255,255,255,0.75);
+            margin-top: 4px;
+        }
+
+        .header-meta {
+            text-align: right;
+            color: rgba(255,255,255,0.85);
+            font-size: var(--fontSizeBase200);
+        }
+
+        .header-meta .org {
+            color: #FFFFFF;
+            font-weight: var(--fontWeightSemibold);
+            font-size: var(--fontSizeBase300);
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 32px 40px 48px;
+        }
+
+        /* ===== KPI Row — Fluent Card with elevation ===== */
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: var(--spacingHorizontalL);
+            margin-bottom: 28px;
+        }
+
+        .kpi-card {
+            background: var(--surface);
+            border: 1px solid var(--borderSubtle);
+            border-radius: var(--borderRadiusXLarge);
+            padding: var(--spacingVerticalXL) var(--spacingHorizontalXXL);
+            text-align: center;
+            box-shadow: var(--shadow4);
+            transition: box-shadow 0.2s ease, transform 0.15s ease;
+        }
+
+        .kpi-card:hover {
+            box-shadow: var(--shadow8);
+            transform: translateY(-1px);
+        }
+
+        .kpi-card .kpi-value {
+            font-size: 36px;
+            font-weight: var(--fontWeightBold);
+            line-height: 1.2;
+        }
+
+        .kpi-card .kpi-label {
+            font-size: var(--fontSizeBase200);
+            color: var(--textTertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-top: 6px;
+            font-weight: var(--fontWeightSemibold);
+        }
+
+        .kpi-card.critical .kpi-value { color: var(--critical); }
+        .kpi-card.high .kpi-value { color: var(--high); }
+        .kpi-card.medium .kpi-value { color: var(--medium); }
+        .kpi-card.low .kpi-value { color: var(--low); }
+        .kpi-card.total .kpi-value { color: var(--colorBrandForeground1); }
+
+        /* ===== Section Titles ===== */
+        .section-title {
+            font-size: var(--fontSizeBase500);
+            font-weight: var(--fontWeightSemibold);
+            margin-bottom: var(--spacingVerticalL);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--colorBrandBackground);
+        }
+
+        .section-title .badge {
+            font-size: 11px;
+            background: var(--colorBrandBackground);
+            border-radius: var(--borderRadiusCircular);
+            padding: 2px 12px;
+            color: #FFFFFF;
+            font-weight: var(--fontWeightSemibold);
+        }
+
+        /* ===== Chart Cards ===== */
+        .charts-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacingHorizontalXL);
+            margin-bottom: 28px;
+        }
+
+        .chart-card {
+            background: var(--surface);
+            border: 1px solid var(--borderSubtle);
+            border-radius: var(--borderRadiusXLarge);
+            padding: var(--spacingVerticalXXL);
+            box-shadow: var(--shadow4);
+        }
+
+        .chart-card h3 {
+            font-size: var(--fontSizeBase200);
+            color: var(--textTertiary);
+            margin-bottom: var(--spacingVerticalL);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: var(--fontWeightSemibold);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+
+        /* ===== Tables — Fluent DataGrid style ===== */
+        .table-card {
+            background: var(--surface);
+            border: 1px solid var(--borderSubtle);
+            border-radius: var(--borderRadiusXLarge);
+            overflow: hidden;
+            margin-bottom: 28px;
+            box-shadow: var(--shadow4);
+        }
+
+        .table-card .table-header {
+            padding: var(--spacingVerticalL) var(--spacingHorizontalXXL);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--surface2);
+        }
+
+        .table-card .table-header h3 {
+            font-size: var(--fontSizeBase400);
+            font-weight: var(--fontWeightSemibold);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th {
+            text-align: left;
+            padding: 12px var(--spacingHorizontalXXL);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--textTertiary);
+            background: var(--surface2);
+            border-bottom: 1px solid var(--border);
+            font-weight: var(--fontWeightSemibold);
+        }
+
+        table td {
+            padding: 14px var(--spacingHorizontalXXL);
+            font-size: var(--fontSizeBase300);
+            border-bottom: 1px solid var(--borderSubtle);
+        }
+
+        table tr:last-child td { border-bottom: none; }
+
+        table tr:hover { background: rgba(0,120,212,0.04); }
+
+        .repo-name {
+            font-weight: var(--fontWeightSemibold);
+            color: var(--accentLink);
+            text-decoration: none;
+        }
+
+        .repo-name:hover { text-decoration: underline; color: #005A9E; }
+
+        /* ===== Severity Badges (Fluent pill style) ===== */
+        .sev-badge {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: var(--borderRadiusCircular);
+            font-size: var(--fontSizeBase200);
+            font-weight: var(--fontWeightSemibold);
+            min-width: 32px;
+            text-align: center;
+        }
+
+        .sev-badge.critical { background: var(--colorStatusDangerBackground1); color: var(--critical); }
+        .sev-badge.high { background: var(--colorPaletteOrangeBackground); color: var(--high); }
+        .sev-badge.medium { background: var(--colorStatusWarningBackground1); color: var(--medium); }
+        .sev-badge.low { background: var(--colorStatusSuccessBackground1); color: var(--low); }
+        .sev-badge.note { background: var(--colorNeutralBackgroundNote); color: var(--note); }
+        .sev-badge.clean { background: var(--colorStatusSuccessBackground1); color: var(--green); }
+
+        /* Severity Bars */
+        .bar-cell {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .severity-bar {
+            display: flex;
+            height: 6px;
+            border-radius: 3px;
+            overflow: hidden;
+            flex: 1;
+            background: var(--surface3);
+        }
+
+        .severity-bar .seg-critical { background: var(--critical); }
+        .severity-bar .seg-high { background: var(--high); }
+        .severity-bar .seg-medium { background: var(--medium); }
+        .severity-bar .seg-low { background: var(--low); }
+        .severity-bar .seg-note { background: var(--note); }
+
+        /* ===== Risk Indicators (Fluent Badge) ===== */
+        .risk-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 3px 12px;
+            border-radius: var(--borderRadiusCircular);
+            font-size: var(--fontSizeBase200);
+            font-weight: var(--fontWeightSemibold);
+        }
+
+        .risk-indicator.risk-critical { background: var(--colorStatusDangerBackground1); color: var(--critical); }
+        .risk-indicator.risk-high { background: var(--colorPaletteOrangeBackground); color: var(--high); }
+        .risk-indicator.risk-medium { background: var(--colorStatusWarningBackground1); color: var(--medium); }
+        .risk-indicator.risk-low { background: var(--colorStatusSuccessBackground1); color: var(--green); }
+
+        .risk-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .risk-critical .risk-dot { background: var(--critical); }
+        .risk-high .risk-dot { background: var(--high); }
+        .risk-medium .risk-dot { background: var(--medium); }
+        .risk-low .risk-dot { background: var(--green); }
+
+        /* ===== Findings Grid ===== */
+        .findings-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacingHorizontalXL);
+            margin-bottom: 28px;
+        }
+
+        .finding-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacingHorizontalM);
+            padding: var(--spacingVerticalM) 0;
+            border-bottom: 1px solid var(--borderSubtle);
+        }
+
+        .finding-item:last-child { border-bottom: none; }
+
+        .finding-count {
+            background: var(--surface3);
+            border-radius: var(--borderRadiusMedium);
+            padding: 4px 10px;
+            font-size: 13px;
+            font-weight: var(--fontWeightSemibold);
+            min-width: 36px;
+            text-align: center;
+            flex-shrink: 0;
+            color: var(--colorBrandForegroundLink);
+        }
+
+        .finding-info .finding-name {
+            font-size: 13px;
+            font-weight: var(--fontWeightSemibold);
+        }
+
+        .finding-info .finding-desc {
+            font-size: var(--fontSizeBase200);
+            color: var(--textTertiary);
+            margin-top: 2px;
+        }
+
+        /* ===== Executive Summary (Fluent MessageBar style) ===== */
+        .exec-summary {
+            background: var(--surface);
+            border: 1px solid var(--borderSubtle);
+            border-left: 4px solid var(--colorBrandBackground);
+            border-radius: var(--borderRadiusLarge);
+            padding: 28px 32px;
+            margin-bottom: 28px;
+            box-shadow: var(--shadow4);
+        }
+
+        .exec-summary h2 {
+            font-size: var(--fontSizeBase400);
+            font-weight: var(--fontWeightSemibold);
+            margin-bottom: var(--spacingVerticalL);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--colorBrandForegroundLink);
+        }
+
+        .exec-summary ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .exec-summary li {
+            padding: 7px 0;
+            font-size: var(--fontSizeBase300);
+            color: var(--textSecondary);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.55;
+        }
+
+        .exec-summary li::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--colorBrandBackground);
+            flex-shrink: 0;
+            margin-top: 7px;
+        }
+
+        .exec-summary li strong { color: var(--text); }
+
+        /* ===== Top Vuln Packages ===== */
+        .top-packages {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacingHorizontalL);
+            margin-bottom: 28px;
+        }
+
+        .pkg-card {
+            background: var(--surface);
+            border: 1px solid var(--borderSubtle);
+            border-radius: var(--borderRadiusXLarge);
+            padding: var(--spacingVerticalL) var(--spacingHorizontalXL);
+            box-shadow: var(--shadow2);
+            transition: box-shadow 0.2s ease, transform 0.15s ease;
+        }
+
+        .pkg-card:hover {
+            box-shadow: var(--shadow8);
+            transform: translateY(-1px);
+        }
+
+        .pkg-card .pkg-name {
+            font-weight: var(--fontWeightSemibold);
+            font-size: var(--fontSizeBase300);
+        }
+
+        .pkg-card .pkg-eco {
+            font-size: 11px;
+            color: var(--textDisabled);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .pkg-card .pkg-vuln {
+            font-size: var(--fontSizeBase200);
+            color: var(--textTertiary);
+            margin-top: 8px;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            text-align: center;
+            padding: var(--spacingVerticalXXL) var(--spacingHorizontalXXL);
+            color: var(--textDisabled);
+            font-size: var(--fontSizeBase200);
+            border-top: 1px solid var(--borderSubtle);
+        }
+
+        .footer .ms-footer-logo {
+            display: inline-grid;
+            grid-template-columns: 8px 8px;
+            grid-template-rows: 8px 8px;
+            gap: 1.5px;
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 1024px) {
+            .kpi-row { grid-template-columns: repeat(3, 1fr); }
+            .charts-row, .findings-grid { grid-template-columns: 1fr; }
+            .top-packages { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 640px) {
+            .kpi-row { grid-template-columns: repeat(2, 1fr); }
+            .container { padding: 16px; }
+            .header-content { flex-direction: column; align-items: flex-start; gap: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Microsoft branded header band -->
+<div class="header">
+    <div class="header-band">
+        <div class="ms-logo">
+            <span class="sq1"></span><span class="sq2"></span>
+            <span class="sq3"></span><span class="sq4"></span>
+        </div>
+        <span class="ms-text">Microsoft</span>
+    </div>
+    <div class="header-content">
+        <div>
+            <h1>
+                <span class="shield-icon">🛡️</span>
+                Security &amp; Code Quality Dashboard
+            </h1>
+            <div class="header-subtitle">GitHub Advanced Security · Solution Accelerator Portfolio</div>
+        </div>
+        <div class="header-meta">
+            <div class="org">microsoft</div>
+            <div>7 Solution Accelerator Repositories</div>
+            <div>Generated: April 15, 2026</div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- KPI Cards -->
+    <div class="kpi-row">
+        <div class="kpi-card total">
+            <div class="kpi-value">228</div>
+            <div class="kpi-label">Total Open Findings</div>
+        </div>
+        <div class="kpi-card critical">
+            <div class="kpi-value">6</div>
+            <div class="kpi-label">Critical Dependabot</div>
+        </div>
+        <div class="kpi-card high">
+            <div class="kpi-value">52</div>
+            <div class="kpi-label">High Severity</div>
+        </div>
+        <div class="kpi-card medium">
+            <div class="kpi-value">91</div>
+            <div class="kpi-label">Medium Severity</div>
+        </div>
+        <div class="kpi-card low">
+            <div class="kpi-value">46</div>
+            <div class="kpi-label">Low / Note</div>
+        </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="charts-row">
+        <div class="chart-card">
+            <h3>Findings Distribution by Repository</h3>
+            <div class="chart-container">
+                <canvas id="repoBarChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <h3>Dependabot Severity Breakdown (All Repos)</h3>
+            <div class="chart-container">
+                <canvas id="depSeverityDoughnut"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="charts-row">
+        <div class="chart-card">
+            <h3>Code Scanning — Standard vs Microsoft Pack</h3>
+            <div class="chart-container">
+                <canvas id="codeTypeChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <h3>Dependabot — Vulnerable Package Ecosystem</h3>
+            <div class="chart-container">
+                <canvas id="ecoChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code Scanning Detail Table -->
+    <div class="section-title">
+        🔍 Code Quality — CodeQL Scanning Alerts <span class="badge">36 Open</span>
+    </div>
+
+    <div class="table-card">
+        <div class="table-header">
+            <h3>Code Scanning Alerts by Repository</h3>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Repository</th>
+                    <th>Total</th>
+                    <th>Standard Findings</th>
+                    <th>Microsoft Pack (AI/Custom)</th>
+                    <th>Severity Distribution</th>
+                    <th>Risk</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Multi-Agent-Custom-Automation-Engine-Solution-Accelerator" target="_blank">Multi-Agent</a></td>
+                    <td><strong>5</strong></td>
+                    <td><span class="sev-badge high">1</span></td>
+                    <td><span class="sev-badge note">4</span></td>
+                    <td>
+                        <div class="bar-cell">
+                            <div class="severity-bar" style="width:120px">
+                                <div class="seg-high" style="width:20%"></div>
+                                <div class="seg-note" style="width:80%"></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td><span class="risk-indicator risk-high"><span class="risk-dot"></span>High</span></td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/content-generation-solution-accelerator" target="_blank">Content Generation</a></td>
+                    <td><strong>0</strong></td>
+                    <td><span class="sev-badge clean">0</span></td>
+                    <td><span class="sev-badge clean">0</span></td>
+                    <td><span style="color:var(--green);font-size:13px">✓ Clean</span></td>
+                    <td><span class="risk-indicator risk-low"><span class="risk-dot"></span>Low</span></td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/content-processing-solution-accelerator" target="_blank">Content Processing</a></td>
+                    <td><strong>11</strong></td>
+                    <td><span class="sev-badge clean">0</span></td>
+                    <td><span class="sev-badge note">11</span></td>
+                    <td>
+                        <div class="bar-cell">
+                            <div class="severity-bar" style="width:120px">
+                                <div class="seg-note" style="width:100%"></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td><span class="risk-indicator risk-medium"><span class="risk-dot"></span>Medium</span></td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Modernize-your-code-solution-accelerator" target="_blank">Modernize your Code</a></td>
+                    <td><strong>5</strong></td>
+                    <td><span class="sev-badge clean">0</span></td>
+                    <td><span class="sev-badge note">5</span></td>
+                    <td>
+                        <div class="bar-cell">
+                            <div class="severity-bar" style="width:120px">
+                                <div class="seg-note" style="width:100%"></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td><span class="risk-indicator risk-medium"><span class="risk-dot"></span>Medium</span></td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/customer-chatbot-solution-accelerator" target="_blank">Customer Chatbot</a></td>
+                    <td><strong>0</strong></td>
+                    <td><span class="sev-badge clean">0</span></td>
+                    <td><span class="sev-badge clean">0</span></td>
+                    <td><span style="color:var(--green);font-size:13px">✓ Clean</span></td>
+                    <td><span class="risk-indicator risk-low"><span class="risk-dot"></span>Low</span></td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/real-time-intelligence-operations-solution-accelerator" target="_blank">Real-Time Intelligence</a></td>
+                    <td><strong>2</strong></td>
+                    <td><span class="sev-badge clean">0</span></td>
+                    <td><span class="sev-badge note">2</span></td>
+                    <td>
+                        <div class="bar-cell">
+                            <div class="severity-bar" style="width:120px">
+                                <div class="seg-note" style="width:100%"></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td><span class="risk-indicator risk-low"><span class="risk-dot"></span>Low</span></td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Container-Migration-Solution-Accelerator" target="_blank">Container Migration</a></td>
+                    <td><strong>13</strong></td>
+                    <td><span class="sev-badge high">2</span></td>
+                    <td><span class="sev-badge note">11</span></td>
+                    <td>
+                        <div class="bar-cell">
+                            <div class="severity-bar" style="width:120px">
+                                <div class="seg-high" style="width:15%"></div>
+                                <div class="seg-note" style="width:85%"></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td><span class="risk-indicator risk-high"><span class="risk-dot"></span>High</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Code Scanning Findings Detail -->
+    <div class="findings-grid">
+        <div class="chart-card">
+            <h3>Standard CodeQL Findings</h3>
+            <div class="finding-item">
+                <span class="sev-badge high">HIGH</span>
+                <div class="finding-info">
+                    <div class="finding-name">js/insecure-randomness</div>
+                    <div class="finding-desc">Insecure randomness — Multi-Agent (1 instance)</div>
+                </div>
+            </div>
+            <div class="finding-item">
+                <span class="sev-badge high">HIGH</span>
+                <div class="finding-info">
+                    <div class="finding-name">SM01305: Uncontrolled data in path expression</div>
+                    <div class="finding-desc">Path traversal (CWE-22/23/36/73) — Container Migration (2 instances)</div>
+                </div>
+            </div>
+            <p style="color:var(--text-muted);font-size:13px;margin-top:12px;">3 standard findings across 2 repos. All rated <strong style="color:var(--high)">High</strong> severity.</p>
+        </div>
+        <div class="chart-card">
+            <h3>Microsoft Pack (Custom/AI) Findings</h3>
+            <div class="finding-item">
+                <div class="finding-count">25</div>
+                <div class="finding-info">
+                    <div class="finding-name">SM05139: Unsafe DefaultAzureCredential</div>
+                    <div class="finding-desc">Detects unsafe credential usage in Python apps — 6 repos affected</div>
+                </div>
+            </div>
+            <div class="finding-item">
+                <div class="finding-count">5</div>
+                <div class="finding-info">
+                    <div class="finding-name">SM03945: Alert Suppression Report</div>
+                    <div class="finding-desc">Alert suppression tracking — 3 repos affected</div>
+                </div>
+            </div>
+            <div class="finding-item">
+                <div class="finding-count">3</div>
+                <div class="finding-info">
+                    <div class="finding-name">SM04733: Alert Suppression Report</div>
+                    <div class="finding-desc">Alert suppression tracking — Content Processing only</div>
+                </div>
+            </div>
+            <p style="color:var(--text-muted);font-size:13px;margin-top:12px;">33 Microsoft Pack findings. All rated <strong style="color:var(--note)">Note</strong> (informational) severity.</p>
+        </div>
+    </div>
+
+    <!-- Dependabot Detail Table -->
+    <div class="section-title">
+        🛡️ Dependabot — Vulnerability Alerts <span class="badge">192 Open</span>
+    </div>
+
+    <div class="table-card">
+        <div class="table-header">
+            <h3>Dependabot Alerts by Repository</h3>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Repository</th>
+                    <th>Total</th>
+                    <th style="color:var(--critical)">Critical</th>
+                    <th style="color:var(--high)">High</th>
+                    <th style="color:var(--medium)">Medium</th>
+                    <th style="color:var(--low)">Low</th>
+                    <th>Severity Distribution</th>
+                    <th>Risk</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Multi-Agent-Custom-Automation-Engine-Solution-Accelerator/security/dependabot" target="_blank">Multi-Agent</a></td>
+                    <td><strong>12</strong></td>
+                    <td>0</td>
+                    <td><span class="sev-badge high">2</span></td>
+                    <td><span class="sev-badge medium">10</span></td>
+                    <td>0</td>
+                    <td>
+                        <div class="bar-cell"><div class="severity-bar" style="width:140px">
+                            <div class="seg-high" style="width:17%"></div>
+                            <div class="seg-medium" style="width:83%"></div>
+                        </div></div>
+                    </td>
+                    <td><span class="risk-indicator risk-medium"><span class="risk-dot"></span>Medium</span></td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/content-generation-solution-accelerator/security/dependabot" target="_blank">Content Generation</a></td>
+                    <td><strong>8</strong></td>
+                    <td>0</td>
+                    <td><span class="sev-badge high">4</span></td>
+                    <td><span class="sev-badge medium">4</span></td>
+                    <td>0</td>
+                    <td>
+                        <div class="bar-cell"><div class="severity-bar" style="width:140px">
+                            <div class="seg-high" style="width:50%"></div>
+                            <div class="seg-medium" style="width:50%"></div>
+                        </div></div>
+                    </td>
+                    <td><span class="risk-indicator risk-medium"><span class="risk-dot"></span>Medium</span></td>
+                </tr>
+                <tr style="background:#E8F1FA">
+                    <td><a class="repo-name" href="https://github.com/microsoft/content-processing-solution-accelerator/security/dependabot" target="_blank">Content Processing ⚠️</a></td>
+                    <td><strong style="color:var(--critical)">100</strong></td>
+                    <td><span class="sev-badge critical">3</span></td>
+                    <td><span class="sev-badge high">39</span></td>
+                    <td><span class="sev-badge medium">36</span></td>
+                    <td><span class="sev-badge low">22</span></td>
+                    <td>
+                        <div class="bar-cell"><div class="severity-bar" style="width:140px">
+                            <div class="seg-critical" style="width:3%"></div>
+                            <div class="seg-high" style="width:39%"></div>
+                            <div class="seg-medium" style="width:36%"></div>
+                            <div class="seg-low" style="width:22%"></div>
+                        </div></div>
+                    </td>
+                    <td><span class="risk-indicator risk-critical"><span class="risk-dot"></span>Critical</span></td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Modernize-your-code-solution-accelerator/security/dependabot" target="_blank">Modernize your Code</a></td>
+                    <td><strong>1</strong></td>
+                    <td><span class="sev-badge critical">1</span></td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>
+                        <div class="bar-cell"><div class="severity-bar" style="width:140px">
+                            <div class="seg-critical" style="width:100%"></div>
+                        </div></div>
+                    </td>
+                    <td><span class="risk-indicator risk-critical"><span class="risk-dot"></span>Critical</span></td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/customer-chatbot-solution-accelerator/security/dependabot" target="_blank">Customer Chatbot</a></td>
+                    <td><strong>17</strong></td>
+                    <td><span class="sev-badge critical">1</span></td>
+                    <td><span class="sev-badge high">3</span></td>
+                    <td><span class="sev-badge medium">7</span></td>
+                    <td><span class="sev-badge low">6</span></td>
+                    <td>
+                        <div class="bar-cell"><div class="severity-bar" style="width:140px">
+                            <div class="seg-critical" style="width:6%"></div>
+                            <div class="seg-high" style="width:18%"></div>
+                            <div class="seg-medium" style="width:41%"></div>
+                            <div class="seg-low" style="width:35%"></div>
+                        </div></div>
+                    </td>
+                    <td><span class="risk-indicator risk-high"><span class="risk-dot"></span>High</span></td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/real-time-intelligence-operations-solution-accelerator/security/dependabot" target="_blank">Real-Time Intelligence</a></td>
+                    <td><strong>0</strong></td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td><span style="color:var(--green);font-size:13px">✓ Clean</span></td>
+                    <td><span class="risk-indicator risk-low"><span class="risk-dot"></span>Low</span></td>
+                </tr>
+                <tr style="background:#EBF3FC">
+                    <td><a class="repo-name" href="https://github.com/microsoft/Container-Migration-Solution-Accelerator/security/dependabot" target="_blank">Container Migration</a></td>
+                    <td><strong>54</strong></td>
+                    <td><span class="sev-badge critical">1</span></td>
+                    <td><span class="sev-badge high">1</span></td>
+                    <td><span class="sev-badge medium">34</span></td>
+                    <td><span class="sev-badge low">18</span></td>
+                    <td>
+                        <div class="bar-cell"><div class="severity-bar" style="width:140px">
+                            <div class="seg-critical" style="width:2%"></div>
+                            <div class="seg-high" style="width:2%"></div>
+                            <div class="seg-medium" style="width:63%"></div>
+                            <div class="seg-low" style="width:33%"></div>
+                        </div></div>
+                    </td>
+                    <td><span class="risk-indicator risk-high"><span class="risk-dot"></span>High</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Top Critical / High Vulnerabilities -->
+    <div class="section-title">
+        🚨 Critical &amp; High-Priority Vulnerabilities — Top Findings
+    </div>
+
+    <div class="top-packages">
+        <div class="pkg-card" style="border-left: 3px solid var(--critical);">
+            <div class="pkg-eco">pip / npm</div>
+            <div class="pkg-name">Axios — SSRF via NO_PROXY Bypass</div>
+            <div class="pkg-vuln"><span class="sev-badge critical">CRITICAL</span> CWE-441, CWE-918 · 3 repos affected</div>
+        </div>
+        <div class="pkg-card" style="border-left: 3px solid var(--critical);">
+            <div class="pkg-eco">pip</div>
+            <div class="pkg-name">Authlib — JWS Signature Bypass</div>
+            <div class="pkg-vuln"><span class="sev-badge critical">CRITICAL</span> CWE-347 · Content Processing</div>
+        </div>
+        <div class="pkg-card" style="border-left: 3px solid var(--critical);">
+            <div class="pkg-eco">pip</div>
+            <div class="pkg-name">FastMCP — SSRF &amp; Path Traversal</div>
+            <div class="pkg-vuln"><span class="sev-badge critical">CRITICAL</span> CWE-918 · Content Processing</div>
+        </div>
+        <div class="pkg-card" style="border-left: 3px solid var(--high);">
+            <div class="pkg-eco">npm</div>
+            <div class="pkg-name">Vite — Arbitrary File Read via WebSocket</div>
+            <div class="pkg-vuln"><span class="sev-badge high">HIGH</span> CWE-200, CWE-306 · 4 repos affected</div>
+        </div>
+        <div class="pkg-card" style="border-left: 3px solid var(--high);">
+            <div class="pkg-eco">pip</div>
+            <div class="pkg-name">Lupa — Sandbox Escape / RCE</div>
+            <div class="pkg-vuln"><span class="sev-badge high">HIGH</span> CWE-284, CWE-693 · Content Processing</div>
+        </div>
+        <div class="pkg-card" style="border-left: 3px solid var(--high);">
+            <div class="pkg-eco">npm</div>
+            <div class="pkg-name">node-forge — Certificate Chain Bypass</div>
+            <div class="pkg-vuln"><span class="sev-badge high">HIGH</span> CWE-295, CWE-347 · Content Processing</div>
+        </div>
+    </div>
+
+    <!-- Commonly Affected Packages Across Repos -->
+    <div class="section-title">
+        📦 Cross-Repo Vulnerable Packages — Coordinated Upgrade Candidates
+    </div>
+
+    <div class="table-card">
+        <table>
+            <thead>
+                <tr>
+                    <th>Package</th>
+                    <th>Ecosystem</th>
+                    <th>Max Severity</th>
+                    <th>Repos Affected</th>
+                    <th>Key Vulnerability</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>aiohttp</strong></td>
+                    <td>pip</td>
+                    <td><span class="sev-badge medium">Medium</span></td>
+                    <td>3 (Content Processing, Customer Chatbot, Container Migration)</td>
+                    <td>SSRF, Header Injection, DoS, CRLF injection</td>
+                </tr>
+                <tr>
+                    <td><strong>vite</strong></td>
+                    <td>npm</td>
+                    <td><span class="sev-badge high">High</span></td>
+                    <td>4 (Multi-Agent, Content Gen, Customer Chatbot, Container Migration)</td>
+                    <td>Arbitrary File Read, Path Traversal, fs.deny bypass</td>
+                </tr>
+                <tr>
+                    <td><strong>cryptography</strong></td>
+                    <td>pip</td>
+                    <td><span class="sev-badge high">High</span></td>
+                    <td>3 (Multi-Agent, Content Processing, Container Migration)</td>
+                    <td>Buffer overflow, Subgroup attack, DNS constraint bypass</td>
+                </tr>
+                <tr>
+                    <td><strong>axios</strong></td>
+                    <td>npm</td>
+                    <td><span class="sev-badge critical">Critical</span></td>
+                    <td>3 (Modernize, Customer Chatbot, Container Migration)</td>
+                    <td>NO_PROXY SSRF bypass</td>
+                </tr>
+                <tr>
+                    <td><strong>picomatch</strong></td>
+                    <td>npm</td>
+                    <td><span class="sev-badge high">High</span></td>
+                    <td>3 (Content Gen, Content Processing, Customer Chatbot)</td>
+                    <td>ReDoS, Method Injection</td>
+                </tr>
+                <tr>
+                    <td><strong>minimatch</strong></td>
+                    <td>npm</td>
+                    <td><span class="sev-badge high">High</span></td>
+                    <td>1 (Content Processing — 7 instances)</td>
+                    <td>ReDoS via multiple attack vectors</td>
+                </tr>
+                <tr>
+                    <td><strong>pytest</strong></td>
+                    <td>pip</td>
+                    <td><span class="sev-badge medium">Medium</span></td>
+                    <td>4 (Multi-Agent, Content Processing, Customer Chatbot, Container Migration)</td>
+                    <td>Insecure tmpdir handling</td>
+                </tr>
+                <tr>
+                    <td><strong>requests</strong></td>
+                    <td>pip</td>
+                    <td><span class="sev-badge medium">Medium</span></td>
+                    <td>3 (Multi-Agent, Content Processing, Container Migration)</td>
+                    <td>Insecure temp file reuse</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<div class="footer">
+    <span class="ms-footer-logo">
+        <span style="background:#F25022"></span><span style="background:#7FBA00"></span>
+        <span style="background:#00A4EF"></span><span style="background:#FFB900"></span>
+    </span>
+    Data sourced from GitHub Advanced Security (CodeQL) &amp; Dependabot APIs · Dashboard generated April 15, 2026 · microsoft org
+</div>
+
+<script>
+    /* Fluent 2 chart color tokens — Light Theme, Warm Blue palette */
+    const fluentBrand = '#0078D4';
+    const fluentBrandLight = '#2B88D8';
+    const fluentWarning = '#5BA0D6';
+    const fluentDanger = '#004E8C';
+    const fluentOrange = '#0F548C';
+    const fluentSuccess = '#107C10';
+    const fluentNeutral = '#A19F9D';
+    const fluentTextMuted = '#616161';
+    const fluentGridColor = 'rgba(0,0,0,0.06)';
+    const fluentSurface = '#FFFFFF';
+
+    const repoLabels = ['Multi-Agent', 'Content Gen', 'Content Proc', 'Modernize', 'Chatbot', 'Real-Time', 'Container Mig'];
+
+    Chart.defaults.color = fluentTextMuted;
+    Chart.defaults.borderColor = fluentGridColor;
+    Chart.defaults.font = { family: "'Segoe UI', sans-serif" };
+
+    // Repo Bar Chart - Code Scanning + Dependabot
+    new Chart(document.getElementById('repoBarChart'), {
+        type: 'bar',
+        data: {
+            labels: repoLabels,
+            datasets: [
+                {
+                    label: 'CodeQL Alerts',
+                    data: [5, 0, 11, 5, 0, 2, 13],
+                    backgroundColor: fluentBrand,
+                    hoverBackgroundColor: fluentBrandLight,
+                    borderRadius: 4
+                },
+                {
+                    label: 'Dependabot Alerts',
+                    data: [12, 8, 100, 1, 17, 0, 54],
+                    backgroundColor: '#83BDE6',
+                    hoverBackgroundColor: '#A3D1F0',
+                    borderRadius: 4
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { labels: { color: fluentTextMuted, font: { size: 12, family: "'Segoe UI'" } } }
+            },
+            scales: {
+                x: { ticks: { color: fluentNeutral, font: { size: 11, family: "'Segoe UI'" } }, grid: { color: fluentGridColor } },
+                y: { ticks: { color: fluentNeutral, font: { family: "'Segoe UI'" } }, grid: { color: fluentGridColor } }
+            }
+        }
+    });
+
+    // Dependabot Severity Doughnut
+    new Chart(document.getElementById('depSeverityDoughnut'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Critical (6)', 'High (49)', 'Medium (91)', 'Low (46)'],
+            datasets: [{
+                data: [6, 49, 91, 46],
+                backgroundColor: [fluentDanger, fluentOrange, fluentWarning, fluentSuccess],
+                borderColor: '#FFFFFF',
+                borderWidth: 3
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '55%',
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: { color: fluentTextMuted, font: { size: 13, family: "'Segoe UI'" }, padding: 16 }
+                }
+            }
+        }
+    });
+
+    // Code Scanning Type Chart
+    new Chart(document.getElementById('codeTypeChart'), {
+        type: 'bar',
+        data: {
+            labels: repoLabels,
+            datasets: [
+                {
+                    label: 'Standard (High)',
+                    data: [1, 0, 0, 0, 0, 0, 2],
+                    backgroundColor: '#004E8C',
+                    hoverBackgroundColor: '#0F548C',
+                    borderRadius: 4
+                },
+                {
+                    label: 'Microsoft Pack (Note)',
+                    data: [4, 0, 11, 5, 0, 2, 11],
+                    backgroundColor: '#B4D5EE',
+                    hoverBackgroundColor: '#C8E1F4',
+                    borderRadius: 4
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { labels: { color: fluentTextMuted, font: { size: 12, family: "'Segoe UI'" } } }
+            },
+            scales: {
+                x: { stacked: true, ticks: { color: fluentNeutral, font: { size: 11, family: "'Segoe UI'" } }, grid: { color: fluentGridColor } },
+                y: { stacked: true, ticks: { color: fluentNeutral, font: { family: "'Segoe UI'" } }, grid: { color: fluentGridColor } }
+            }
+        }
+    });
+
+    // Ecosystem Chart
+    new Chart(document.getElementById('ecoChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['pip (Python)', 'npm (Node.js)'],
+            datasets: [{
+                data: [118, 74],
+                backgroundColor: ['#0078D4', '#5BA0D6'],
+                borderColor: '#FFFFFF',
+                borderWidth: 3
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '55%',
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: { color: fluentTextMuted, font: { size: 13, family: "'Segoe UI'" }, padding: 16 }
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
