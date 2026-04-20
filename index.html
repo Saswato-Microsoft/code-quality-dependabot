@@ -574,6 +574,20 @@
             margin-top: 8px;
         }
 
+        /* ===== Code Path Cells ===== */
+        .code-path {
+            font-size: 12px;
+            font-family: 'Cascadia Code', 'Consolas', monospace;
+            word-break: break-all;
+            max-width: 320px;
+            color: var(--textSecondary);
+        }
+
+        table td[rowspan] {
+            vertical-align: top;
+            font-weight: var(--fontWeightSemibold);
+        }
+
         /* ===== Footer ===== */
         .footer {
             text-align: center;
@@ -848,6 +862,327 @@
             </div>
             <p style="color:var(--text-muted);font-size:13px;margin-top:12px;">33 Microsoft Pack findings. All rated <strong style="color:var(--note)">Note</strong> (informational) severity.</p>
         </div>
+    </div>
+
+    <!-- Code Scanning Detailed Alert Table -->
+    <div class="table-card">
+        <div class="table-header">
+            <h3>Code Scanning — Detailed Alert List</h3>
+            <span class="sev-badge note" style="font-size:13px;">36 Open Alerts across 5 Repositories</span>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Repository</th>
+                    <th>Alert</th>
+                    <th>Rule</th>
+                    <th>Description</th>
+                    <th>Severity</th>
+                    <th>File Location</th>
+                    <th>Created</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Multi-Agent (5 alerts) -->
+                <tr>
+                    <td rowspan="5"><a class="repo-name" href="https://github.com/microsoft/Multi-Agent-Custom-Automation-Engine-Solution-Accelerator/security/code-scanning" target="_blank">Multi-Agent</a></td>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Multi-Agent-Custom-Automation-Engine-Solution-Accelerator/security/code-scanning/45" target="_blank">#45</a></td>
+                    <td>js/insecure-randomness</td>
+                    <td>Insecure randomness</td>
+                    <td><span class="sev-badge high">High</span></td>
+                    <td style="font-size:12px;font-family:monospace;">src/App/src/store/TaskService.tsx:187</td>
+                    <td>2026-04-13</td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Multi-Agent-Custom-Automation-Engine-Solution-Accelerator/security/code-scanning/43" target="_blank">#43</a></td>
+                    <td>SM05139</td>
+                    <td>Unsafe DefaultAzureCredential</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">infra/vscode_web/endpointCodeSample.py:6</td>
+                    <td>2025-12-19</td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Multi-Agent-Custom-Automation-Engine-Solution-Accelerator/security/code-scanning/42" target="_blank">#42</a></td>
+                    <td>SM05139</td>
+                    <td>Unsafe DefaultAzureCredential</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">infra/vscode_web/codeSample.py:5</td>
+                    <td>2025-12-19</td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Multi-Agent-Custom-Automation-Engine-Solution-Accelerator/security/code-scanning/41" target="_blank">#41</a></td>
+                    <td>SM05139</td>
+                    <td>Unsafe DefaultAzureCredential</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">src/backend/common/config/app_config.py:126</td>
+                    <td>2025-10-20</td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Multi-Agent-Custom-Automation-Engine-Solution-Accelerator/security/code-scanning/40" target="_blank">#40</a></td>
+                    <td>SM03945</td>
+                    <td>Alert Suppression Report</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">src/backend/common/config/app_config.py:126</td>
+                    <td>2025-10-20</td>
+                </tr>
+                <!-- Content Processing (11 alerts) -->
+                <tr style="background:var(--colorNeutralBackground3);">
+                    <td rowspan="11"><a class="repo-name" href="https://github.com/microsoft/content-processing-solution-accelerator/security/code-scanning" target="_blank">Content Processing</a></td>
+                    <td><a class="repo-name" href="https://github.com/microsoft/content-processing-solution-accelerator/security/code-scanning/22" target="_blank">#22</a></td>
+                    <td>SM05139</td>
+                    <td>Unsafe DefaultAzureCredential</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">infra/vscode_web/endpointCodeSample.py:6</td>
+                    <td>2025-11-27</td>
+                </tr>
+                <tr style="background:var(--colorNeutralBackground3);">
+                    <td><a class="repo-name" href="https://github.com/microsoft/content-processing-solution-accelerator/security/code-scanning/21" target="_blank">#21</a></td>
+                    <td>SM05139</td>
+                    <td>Unsafe DefaultAzureCredential</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">infra/vscode_web/codeSample.py:5</td>
+                    <td>2025-11-27</td>
+                </tr>
+                <tr style="background:var(--colorNeutralBackground3);">
+                    <td><a class="repo-name" href="https://github.com/microsoft/content-processing-solution-accelerator/security/code-scanning/20" target="_blank">#20</a></td>
+                    <td>SM05139</td>
+                    <td>Unsafe DefaultAzureCredential</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">src/ContentProcessorAPI/helpers/azure_credential_utils.py:33</td>
+                    <td>2025-08-06</td>
+                </tr>
+                <tr style="background:var(--colorNeutralBackground3);">
+                    <td><a class="repo-name" href="https://github.com/microsoft/content-processing-solution-accelerator/security/code-scanning/19" target="_blank">#19</a></td>
+                    <td>SM05139</td>
+                    <td>Unsafe DefaultAzureCredential</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">src/ContentProcessor/src/helpers/azure_credential_utils.py:42</td>
+                    <td>2025-08-06</td>
+                </tr>
+                <tr style="background:var(--colorNeutralBackground3);">
+                    <td><a class="repo-name" href="https://github.com/microsoft/content-processing-solution-accelerator/security/code-scanning/18" target="_blank">#18</a></td>
+                    <td>SM03945</td>
+                    <td>Alert Suppression Report</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">src/ContentProcessorAPI/helpers/azure_credential_utils.py:33</td>
+                    <td>2025-08-06</td>
+                </tr>
+                <tr style="background:var(--colorNeutralBackground3);">
+                    <td><a class="repo-name" href="https://github.com/microsoft/content-processing-solution-accelerator/security/code-scanning/17" target="_blank">#17</a></td>
+                    <td>SM03945</td>
+                    <td>Alert Suppression Report</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">src/ContentProcessorAPI/helpers/azure_credential_utils.py:17</td>
+                    <td>2025-08-06</td>
+                </tr>
+                <tr style="background:var(--colorNeutralBackground3);">
+                    <td><a class="repo-name" href="https://github.com/microsoft/content-processing-solution-accelerator/security/code-scanning/16" target="_blank">#16</a></td>
+                    <td>SM03945</td>
+                    <td>Alert Suppression Report</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">src/ContentProcessor/src/helpers/azure_credential_utils.py:42</td>
+                    <td>2025-08-06</td>
+                </tr>
+                <tr style="background:var(--colorNeutralBackground3);">
+                    <td><a class="repo-name" href="https://github.com/microsoft/content-processing-solution-accelerator/security/code-scanning/15" target="_blank">#15</a></td>
+                    <td>SM03945</td>
+                    <td>Alert Suppression Report</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">src/ContentProcessor/src/helpers/azure_credential_utils.py:23</td>
+                    <td>2025-08-06</td>
+                </tr>
+                <tr style="background:var(--colorNeutralBackground3);">
+                    <td><a class="repo-name" href="https://github.com/microsoft/content-processing-solution-accelerator/security/code-scanning/3" target="_blank">#3</a></td>
+                    <td>SM04733</td>
+                    <td>Alert Suppression Report</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">src/ContentProcessor/src/libs/azure_helper/content_understanding.py:146</td>
+                    <td>2025-04-15</td>
+                </tr>
+                <tr style="background:var(--colorNeutralBackground3);">
+                    <td><a class="repo-name" href="https://github.com/microsoft/content-processing-solution-accelerator/security/code-scanning/2" target="_blank">#2</a></td>
+                    <td>SM04733</td>
+                    <td>Alert Suppression Report</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">src/ContentProcessor/src/libs/azure_helper/content_understanding.py:46</td>
+                    <td>2025-04-15</td>
+                </tr>
+                <tr style="background:var(--colorNeutralBackground3);">
+                    <td><a class="repo-name" href="https://github.com/microsoft/content-processing-solution-accelerator/security/code-scanning/1" target="_blank">#1</a></td>
+                    <td>SM04733</td>
+                    <td>Alert Suppression Report</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">src/ContentProcessor/src/libs/azure_helper/content_understanding.py:40</td>
+                    <td>2025-04-15</td>
+                </tr>
+                <!-- Modernize (5 alerts) -->
+                <tr>
+                    <td rowspan="5"><a class="repo-name" href="https://github.com/microsoft/Modernize-your-code-solution-accelerator/security/code-scanning" target="_blank">Modernize your Code</a></td>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Modernize-your-code-solution-accelerator/security/code-scanning/8" target="_blank">#8</a></td>
+                    <td>SM05139</td>
+                    <td>Unsafe DefaultAzureCredential</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">infra/vscode_web/endpointCodeSample.py:6</td>
+                    <td>2025-12-01</td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Modernize-your-code-solution-accelerator/security/code-scanning/7" target="_blank">#7</a></td>
+                    <td>SM05139</td>
+                    <td>Unsafe DefaultAzureCredential</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">infra/vscode_web/codeSample.py:5</td>
+                    <td>2025-12-01</td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Modernize-your-code-solution-accelerator/security/code-scanning/6" target="_blank">#6</a></td>
+                    <td>SM05139</td>
+                    <td>Unsafe DefaultAzureCredential</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">src/backend/helper/azure_credential_utils.py:34</td>
+                    <td>2025-08-03</td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Modernize-your-code-solution-accelerator/security/code-scanning/5" target="_blank">#5</a></td>
+                    <td>SM03945</td>
+                    <td>Alert Suppression Report</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">src/backend/helper/azure_credential_utils.py:34</td>
+                    <td>2025-08-03</td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Modernize-your-code-solution-accelerator/security/code-scanning/4" target="_blank">#4</a></td>
+                    <td>SM03945</td>
+                    <td>Alert Suppression Report</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">src/backend/helper/azure_credential_utils.py:18</td>
+                    <td>2025-08-03</td>
+                </tr>
+                <!-- Real-Time Intelligence (2 alerts) -->
+                <tr style="background:var(--colorNeutralBackground3);">
+                    <td rowspan="2"><a class="repo-name" href="https://github.com/microsoft/real-time-intelligence-operations-solution-accelerator/security/code-scanning" target="_blank">Real-Time Intelligence</a></td>
+                    <td><a class="repo-name" href="https://github.com/microsoft/real-time-intelligence-operations-solution-accelerator/security/code-scanning/2" target="_blank">#2</a></td>
+                    <td>SM05139</td>
+                    <td>Unsafe DefaultAzureCredential</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">infra/vscode_web/endpointCodeSample.py:6</td>
+                    <td>2026-01-01</td>
+                </tr>
+                <tr style="background:var(--colorNeutralBackground3);">
+                    <td><a class="repo-name" href="https://github.com/microsoft/real-time-intelligence-operations-solution-accelerator/security/code-scanning/1" target="_blank">#1</a></td>
+                    <td>SM05139</td>
+                    <td>Unsafe DefaultAzureCredential</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">infra/vscode_web/codeSample.py:5</td>
+                    <td>2026-01-01</td>
+                </tr>
+                <!-- Container Migration (13 alerts) -->
+                <tr>
+                    <td rowspan="13"><a class="repo-name" href="https://github.com/microsoft/Container-Migration-Solution-Accelerator/security/code-scanning" target="_blank">Container Migration</a></td>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Container-Migration-Solution-Accelerator/security/code-scanning/13" target="_blank">#13</a></td>
+                    <td>SM05139</td>
+                    <td>Unsafe DefaultAzureCredential</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">infra/vscode_web/endpointCodeSample.py:6</td>
+                    <td>2025-11-26</td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Container-Migration-Solution-Accelerator/security/code-scanning/12" target="_blank">#12</a></td>
+                    <td>SM05139</td>
+                    <td>Unsafe DefaultAzureCredential</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">infra/vscode_web/codeSample.py:5</td>
+                    <td>2025-11-26</td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Container-Migration-Solution-Accelerator/security/code-scanning/11" target="_blank">#11</a></td>
+                    <td>SM05139</td>
+                    <td>Unsafe DefaultAzureCredential</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">src/backend-api/src/app/libs/base/kernel_agent.py:198</td>
+                    <td>2025-10-21</td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Container-Migration-Solution-Accelerator/security/code-scanning/10" target="_blank">#10</a></td>
+                    <td>SM05139</td>
+                    <td>Unsafe DefaultAzureCredential</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">src/backend-api/src/app/libs/base/kernel_agent.py:161</td>
+                    <td>2025-10-21</td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Container-Migration-Solution-Accelerator/security/code-scanning/9" target="_blank">#9</a></td>
+                    <td>SM05139</td>
+                    <td>Unsafe DefaultAzureCredential</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">src/backend-api/src/app/libs/sas/storage/blob/helper.py:83</td>
+                    <td>2025-10-21</td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Container-Migration-Solution-Accelerator/security/code-scanning/8" target="_blank">#8</a></td>
+                    <td>SM05139</td>
+                    <td>Unsafe DefaultAzureCredential</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">src/backend-api/src/app/libs/sas/storage/queue/helper.py:96</td>
+                    <td>2025-10-21</td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Container-Migration-Solution-Accelerator/security/code-scanning/7" target="_blank">#7</a></td>
+                    <td>SM05139</td>
+                    <td>Unsafe DefaultAzureCredential</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">src/processor/src/plugins/mcp_server/mcp_blob_io_operation/credential_util.py:98</td>
+                    <td>2025-10-21</td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Container-Migration-Solution-Accelerator/security/code-scanning/6" target="_blank">#6</a></td>
+                    <td>SM05139</td>
+                    <td>Unsafe DefaultAzureCredential</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">src/processor/src/utils/credential_util.py:98</td>
+                    <td>2025-10-21</td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Container-Migration-Solution-Accelerator/security/code-scanning/5" target="_blank">#5</a></td>
+                    <td>SM05139</td>
+                    <td>Unsafe DefaultAzureCredential</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">src/backend-api/src/app/libs/base/application_base.py:41</td>
+                    <td>2025-10-21</td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Container-Migration-Solution-Accelerator/security/code-scanning/4" target="_blank">#4</a></td>
+                    <td>SM05139</td>
+                    <td>Unsafe DefaultAzureCredential</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">src/backend-api/src/app/libs/azure/app_configuration.py:25</td>
+                    <td>2025-10-21</td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Container-Migration-Solution-Accelerator/security/code-scanning/3" target="_blank">#3</a></td>
+                    <td>SM05139</td>
+                    <td>Unsafe DefaultAzureCredential</td>
+                    <td><span class="sev-badge note">Note</span></td>
+                    <td style="font-size:12px;font-family:monospace;">src/processor/src/libs/azure/app_configuration.py:38</td>
+                    <td>2025-10-21</td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Container-Migration-Solution-Accelerator/security/code-scanning/2" target="_blank">#2</a></td>
+                    <td>SM01305</td>
+                    <td>Uncontrolled data in path expression</td>
+                    <td><span class="sev-badge high">High</span></td>
+                    <td style="font-size:12px;font-family:monospace;">src/frontend/frontend_server.py:69</td>
+                    <td>2025-10-21</td>
+                </tr>
+                <tr>
+                    <td><a class="repo-name" href="https://github.com/microsoft/Container-Migration-Solution-Accelerator/security/code-scanning/1" target="_blank">#1</a></td>
+                    <td>SM01305</td>
+                    <td>Uncontrolled data in path expression</td>
+                    <td><span class="sev-badge high">High</span></td>
+                    <td style="font-size:12px;font-family:monospace;">src/frontend/frontend_server.py:68</td>
+                    <td>2025-10-21</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <!-- Dependabot Detail Table -->
