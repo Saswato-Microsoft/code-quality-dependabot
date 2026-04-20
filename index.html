@@ -628,7 +628,7 @@
         <div class="header-meta">
             <div class="org">microsoft</div>
             <div>7 Solution Accelerator Repositories</div>
-            <div>Generated: April 17, 2026 · 11:36 AM UTC</div>
+            <div>Generated: April 20, 2026 · 03:56 AM UTC</div>
         </div>
     </div>
 </div>
@@ -638,7 +638,7 @@
     <!-- KPI Cards -->
     <div class="kpi-row">
         <div class="kpi-card total">
-            <div class="kpi-value">244</div>
+            <div class="kpi-value">278</div>
             <div class="kpi-label">Total Open Findings</div>
         </div>
         <div class="kpi-card critical">
@@ -646,15 +646,15 @@
             <div class="kpi-label">Critical Dependabot</div>
         </div>
         <div class="kpi-card high">
-            <div class="kpi-value">49</div>
+            <div class="kpi-value">66</div>
             <div class="kpi-label">High Severity</div>
         </div>
         <div class="kpi-card medium">
-            <div class="kpi-value">115</div>
+            <div class="kpi-value">123</div>
             <div class="kpi-label">Medium Severity</div>
         </div>
         <div class="kpi-card low">
-            <div class="kpi-value">45</div>
+            <div class="kpi-value">54</div>
             <div class="kpi-label">Low / Note</div>
         </div>
     </div>
@@ -826,14 +826,14 @@
         <div class="chart-card">
             <h3>Microsoft Pack (Custom/AI) Findings</h3>
             <div class="finding-item">
-                <div class="finding-count">25</div>
+                <div class="finding-count">23</div>
                 <div class="finding-info">
                     <div class="finding-name">SM05139: Unsafe DefaultAzureCredential</div>
-                    <div class="finding-desc">Detects unsafe credential usage in Python apps — 6 repos affected</div>
+                    <div class="finding-desc">Detects unsafe credential usage in Python apps — 5 repos affected</div>
                 </div>
             </div>
             <div class="finding-item">
-                <div class="finding-count">5</div>
+                <div class="finding-count">7</div>
                 <div class="finding-info">
                     <div class="finding-name">SM03945: Alert Suppression Report</div>
                     <div class="finding-desc">Alert suppression tracking — 3 repos affected</div>
@@ -852,7 +852,7 @@
 
     <!-- Dependabot Detail Table -->
     <div class="section-title">
-        🛡️ Dependabot — Vulnerability Alerts <span class="badge">208 Open</span>
+        🛡️ Dependabot — Vulnerability Alerts <span class="badge">242 Open</span>
     </div>
 
     <div class="table-card">
@@ -905,17 +905,17 @@
                 </tr>
                 <tr style="background:#E8F1FA">
                     <td><a class="repo-name" href="https://github.com/microsoft/content-processing-solution-accelerator/security/dependabot" target="_blank">Content Processing ⚠️</a></td>
-                    <td><strong style="color:var(--critical)">100</strong></td>
+                    <td><strong style="color:var(--critical)">134</strong></td>
                     <td><span class="sev-badge critical">2</span></td>
-                    <td><span class="sev-badge high">36</span></td>
-                    <td><span class="sev-badge medium">41</span></td>
-                    <td><span class="sev-badge low">21</span></td>
+                    <td><span class="sev-badge high">53</span></td>
+                    <td><span class="sev-badge medium">49</span></td>
+                    <td><span class="sev-badge low">30</span></td>
                     <td>
                         <div class="bar-cell"><div class="severity-bar" style="width:140px">
-                            <div class="seg-critical" style="width:2%"></div>
-                            <div class="seg-high" style="width:36%"></div>
-                            <div class="seg-medium" style="width:41%"></div>
-                            <div class="seg-low" style="width:21%"></div>
+                            <div class="seg-critical" style="width:1%"></div>
+                            <div class="seg-high" style="width:40%"></div>
+                            <div class="seg-medium" style="width:37%"></div>
+                            <div class="seg-low" style="width:22%"></div>
                         </div></div>
                     </td>
                     <td><span class="risk-indicator risk-critical"><span class="risk-dot"></span>Critical</span></td>
@@ -987,19 +987,14 @@
 
     <div class="top-packages">
         <div class="pkg-card" style="border-left: 3px solid var(--critical);">
-            <div class="pkg-eco">pip / npm</div>
-            <div class="pkg-name">Axios — SSRF via NO_PROXY Bypass</div>
-            <div class="pkg-vuln"><span class="sev-badge critical">CRITICAL</span> CWE-441, CWE-918 · 2 repos affected</div>
+            <div class="pkg-eco">pip</div>
+            <div class="pkg-name">Authlib — JWS Signature Bypass &amp; OIDC Fail-Open</div>
+            <div class="pkg-vuln"><span class="sev-badge critical">CRITICAL</span> CWE-347 · 3 repos affected</div>
         </div>
         <div class="pkg-card" style="border-left: 3px solid var(--critical);">
             <div class="pkg-eco">pip</div>
-            <div class="pkg-name">Authlib — JWS Signature Bypass</div>
-            <div class="pkg-vuln"><span class="sev-badge critical">CRITICAL</span> CWE-347 · Content Processing</div>
-        </div>
-        <div class="pkg-card" style="border-left: 3px solid var(--critical);">
-            <div class="pkg-eco">pip</div>
-            <div class="pkg-name">FastMCP — SSRF &amp; Path Traversal</div>
-            <div class="pkg-vuln"><span class="sev-badge critical">CRITICAL</span> CWE-918 · Content Processing</div>
+            <div class="pkg-name">FastMCP — SSRF, Path Traversal &amp; Command Injection</div>
+            <div class="pkg-vuln"><span class="sev-badge critical">CRITICAL</span> CWE-918, CWE-78 · Content Processing</div>
         </div>
         <div class="pkg-card" style="border-left: 3px solid var(--high);">
             <div class="pkg-eco">npm</div>
@@ -1008,12 +1003,17 @@
         </div>
         <div class="pkg-card" style="border-left: 3px solid var(--high);">
             <div class="pkg-eco">pip</div>
-            <div class="pkg-name">Lupa — Sandbox Escape / RCE</div>
-            <div class="pkg-vuln"><span class="sev-badge high">HIGH</span> CWE-284, CWE-693 · Content Processing</div>
+            <div class="pkg-name">Cryptography — Subgroup Attack &amp; Buffer Overflow</div>
+            <div class="pkg-vuln"><span class="sev-badge high">HIGH</span> CWE-120 · 3 repos affected</div>
+        </div>
+        <div class="pkg-card" style="border-left: 3px solid var(--high);">
+            <div class="pkg-eco">pip</div>
+            <div class="pkg-name">PyJWT — Unknown crit Header Extensions</div>
+            <div class="pkg-vuln"><span class="sev-badge high">HIGH</span> Content Processing (5 instances)</div>
         </div>
         <div class="pkg-card" style="border-left: 3px solid var(--high);">
             <div class="pkg-eco">npm</div>
-            <div class="pkg-name">node-forge — Certificate Chain Bypass</div>
+            <div class="pkg-name">node-forge — Signature Forgery &amp; Chain Bypass</div>
             <div class="pkg-vuln"><span class="sev-badge high">HIGH</span> CWE-295, CWE-347 · Content Processing</div>
         </div>
     </div>
@@ -1059,9 +1059,9 @@
                 <tr>
                     <td><strong>axios</strong></td>
                     <td>npm</td>
-                    <td><span class="sev-badge critical">Critical</span></td>
-                    <td>3 (Modernize, Customer Chatbot, Container Migration)</td>
-                    <td>NO_PROXY SSRF bypass</td>
+                    <td><span class="sev-badge medium">Medium</span></td>
+                    <td>4 (Content Processing, Modernize, Customer Chatbot, Container Migration)</td>
+                    <td>NO_PROXY SSRF bypass, Cloud Metadata Exfiltration</td>
                 </tr>
                 <tr>
                     <td><strong>picomatch</strong></td>
@@ -1102,7 +1102,7 @@
         <span style="background:#F25022"></span><span style="background:#7FBA00"></span>
         <span style="background:#00A4EF"></span><span style="background:#FFB900"></span>
     </span>
-    Data sourced from GitHub Advanced Security (CodeQL) &amp; Dependabot APIs · Dashboard refreshed April 17, 2026 11:36 AM UTC · microsoft org
+    Data sourced from GitHub Advanced Security (CodeQL) &amp; Dependabot APIs · Dashboard refreshed April 20, 2026 03:56 AM UTC · microsoft org
 </div>
 
 <script>
@@ -1139,7 +1139,7 @@
                 },
                 {
                     label: 'Dependabot Alerts',
-                    data: [17, 9, 100, 3, 19, 0, 60],
+                    data: [17, 9, 134, 3, 19, 0, 60],
                     backgroundColor: '#83BDE6',
                     hoverBackgroundColor: '#A3D1F0',
                     borderRadius: 4
@@ -1163,9 +1163,9 @@
     new Chart(document.getElementById('depSeverityDoughnut'), {
         type: 'doughnut',
         data: {
-            labels: ['Critical (2)', 'High (46)', 'Medium (115)', 'Low (45)'],
+            labels: ['Critical (2)', 'High (63)', 'Medium (123)', 'Low (54)'],
             datasets: [{
-                data: [2, 46, 115, 45],
+                data: [2, 63, 123, 54],
                 backgroundColor: [fluentDanger, fluentOrange, fluentWarning, fluentSuccess],
                 borderColor: '#FFFFFF',
                 borderWidth: 3
@@ -1226,7 +1226,7 @@
             labels: ['pip (Python)', 'npm (Node.js)'],
             datasets: [{
                 label: 'Vulnerability Count',
-                data: [133, 75],
+                data: [158, 84],
                 backgroundColor: ['#0078D4', '#5BA0D6'],
                 hoverBackgroundColor: ['#005A9E', '#83BDE6'],
                 borderRadius: 6,
