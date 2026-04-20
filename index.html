@@ -1485,7 +1485,22 @@
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: { labels: { color: fluentTextMuted, font: { size: 12, family: "'Segoe UI'" } } }
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        color: fluentTextMuted,
+                        font: { size: 12, family: "'Segoe UI'", weight: '600' },
+                        padding: 16,
+                        usePointStyle: true,
+                        pointStyle: 'rectRounded'
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(ctx) { return ctx.dataset.label + ': ' + ctx.parsed.y + ' alerts'; }
+                    }
+                }
             },
             scales: {
                 x: { ticks: { color: fluentNeutral, font: { size: 11, family: "'Segoe UI'" } }, grid: { color: fluentGridColor } },
@@ -1513,7 +1528,13 @@
             plugins: {
                 legend: {
                     position: 'right',
-                    labels: { color: fluentTextMuted, font: { size: 13, family: "'Segoe UI'" }, padding: 16 }
+                    labels: {
+                        color: fluentTextMuted,
+                        font: { size: 13, family: "'Segoe UI'", weight: '600' },
+                        padding: 16,
+                        usePointStyle: true,
+                        pointStyle: 'circle'
+                    }
                 }
             }
         }
@@ -1545,7 +1566,17 @@
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: { labels: { color: fluentTextMuted, font: { size: 12, family: "'Segoe UI'" } } }
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        color: fluentTextMuted,
+                        font: { size: 12, family: "'Segoe UI'", weight: '600' },
+                        padding: 16,
+                        usePointStyle: true,
+                        pointStyle: 'rectRounded'
+                    }
+                }
             },
             scales: {
                 x: { stacked: true, ticks: { color: fluentNeutral, font: { size: 11, family: "'Segoe UI'" } }, grid: { color: fluentGridColor } },
@@ -1573,7 +1604,30 @@
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: { display: false },
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        generateLabels: function(chart) {
+                            const ds = chart.data.datasets[0];
+                            return chart.data.labels.map(function(label, i) {
+                                return {
+                                    text: label + ' — ' + ds.data[i] + ' alerts',
+                                    fillStyle: ds.backgroundColor[i],
+                                    strokeStyle: ds.backgroundColor[i],
+                                    lineWidth: 0,
+                                    pointStyle: 'rectRounded',
+                                    hidden: false,
+                                    index: i
+                                };
+                            });
+                        },
+                        color: fluentTextMuted,
+                        font: { size: 12, family: "'Segoe UI'", weight: '600' },
+                        padding: 16,
+                        usePointStyle: true
+                    }
+                },
                 tooltip: {
                     callbacks: {
                         label: function(ctx) { return ctx.parsed.x + ' alerts'; }
